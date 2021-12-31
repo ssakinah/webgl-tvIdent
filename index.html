@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>𝐆𝐚𝐬𝐤𝐞𝐭</title>
+<link rel="shortcut icon" href="http://i171.photobucket.com/albums/u300/ferny-dust/sozai/bullets/88.gif"><!-- Favicon -->
+<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Responsive Web Design -->
+<link rel="stylesheet" href="Common/stylesheet.css">
+
+<!-- HEADER -->
+<header>
+  <div class="netflixLogo">
+    <a id="logo"><img src="https://raw.githubusercontent.com/noormaisarah/sources/main/netflix.png" alt="Logo Image"></a>
+  </div>      
+  <nav id="open" class="main-nav"> 
+    <span style="cursor:pointer" onclick="openNav()">Gasket Settings</span>
+  </nav>
+  <nav class="dropdown">
+    <a class="dropbtn">Account</a>
+    <div class="dropdown-content">
+      <img class="img" src="https://ih0.redbubble.net/image.618427277.3222/flat,1000x1000,075,f.u2.jpg" width="80" height="80">
+      <a>Maisarah</a><br><br>
+      <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" width="80" height="80">
+      <a>Sakinah</a>
+    </div>
+  </nav>      
+</header>
+<!-- END OF HEADER -->
+
+
+
+<!--GASKET START-->
+<script id="vertex-shader" type="x-shader/x-vertex">
+  attribute vec4 vPosition;
+  attribute vec3 vColor;
+  varying vec4 color;
+  uniform mat4 u_matrix;
+
+  void main(){
+    gl_Position = u_matrix * vPosition;
+    color = vec4(vColor, 1.0);
+  }
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+  precision mediump float;
+  varying vec4 color;
+
+  void main(){
+    gl_FragColor = color;
+  }
+</script>
+<!-- GASKET END -->
+
+
+<script type="text/javascript" src="Common/webgl-utils.js"></script>
+<script type="text/javascript" src="Common/initShaders.js"></script>
+<script type="text/javascript" src="Common/MV.js"></script>
+<script type="text/javascript" src="Common/gasket.js"></script>
+<script type="text/javascript" src="Common/color-picker.min.js"></script>
+<script src="https://webglfundamentals.org/webgl/resources/webgl-utils.js"></script>
+<script src="https://webglfundamentals.org/webgl/resources/webgl-lessons-ui.js"></script>
+
+<!-- OPEN AND CLOSE BUTTON FOR GASKET SETTINGS -->
+<script>
+function openNav() {
+  document.getElementById("close").style.width = "350";
+  document.getElementById("close").style.marginTop = "100px";
+}
+
+function closeNav() {
+  document.getElementById("close").style.width = "350";
+  document.getElementById("close").style.marginTop= "1000px";
+}
+</script>
+<!-- END OPEN AND CLOSE BUTTON FOR GASKET SETTINGS -->
+
+
+<body>
+<!-- GASKET SETTINGS -->
+<div class="wrapper">
+  <div class="inner">
+    <div id="close" class="settings">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <div class="rotation_iteration">
+        <p>Rotation Iteration: </p>
+        <div class="switch-field">
+          <input id="rot_default" type="radio" name='rotate' value="1">
+          <label for="rot_default">One</label>
+          <input id="rot_2" type="radio" name='rotate' value="2">
+          <label for="rot_2">Two</label>
+          <input  id="rot_3" type="radio" name='rotate' value="3">
+          <label for="rot_3">Three</label>
+        </div>
+      </div>
+      <div class="rotate_axis">
+        <p>Rotation Axis: </p>
+        <div class="switch-field">
+          <input  id="axis-x" type="radio" name='axis' value="3">
+          <label for="axis-x">X-axis</label>
+          <input  id="axis-y" type="radio" name='axis' value="1">
+          <label for="axis-y">Y-axis</label>
+          <input id="axis_default" type="radio" name='axis' value="2">
+          <label for="axis_default">Z-axis</label>
+        </div>
+      </div>
+      <div class="subdivision_settings">
+        <p style="display: inline;">Number of Subdivision: </p>
+        <div class="switch-field">
+          <input id="sub_1" type="radio" name='subdivision' value="1">
+          <label for="sub_1">One</label>
+          <input id="sub_2" type="radio" name='subdivision' value="2">
+          <label for="sub_2">Two</label>
+          <input id="sub_default" type="radio" name='subdivision' value="3">
+          <label for="sub_default">Three</label>
+        </div>
+      </div>
+      <div class="color_pick">
+        <p>Colour palette: </p>
+        <div class="row">
+          <div class="column">
+            <p><input id="color1"type="color" name="color1" onchange="changeValue(this.value, 1);" value="#30475E"></p>
+          </div>
+          <div class="column">
+            <p><input id="color2"type="color"name="color2"  onchange="changeValue(this.value, 1);"value="#F05454"></p>
+          </div>
+          <div class="column">
+            <p><input id="color3"type="color" name="color3" onchange="changeValue(this.value, 1); "value="#F8F5F1"></p>
+          </div>
+      </div>
+      <div class="direction">
+        <p style="display: inline;">Invert direction: </p>
+        <label class="switch">
+          <input id="direction_check"type="checkbox">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="speed_settings">
+        <p>Speed: </p>
+        <p style="margin-left:0.5rem">0.5x</p>
+        <input type="range" min="250" max="1000" value="500" class="speed" id="speed_slide">
+        <p style="margin-right:0.5rem">2x</p>
+        <button id="reset_speed" type="button">Reset</button>
+      </div>
+      <div> 
+        <button id="button" type="button" style="width: 100%" >Start</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END GASKET SETTINGS -->
+
+<!-- WEBGL CANVAS -->
+<div>
+  <canvas id="gl-canvas" width="700" height="700"></canvas>
+</div>
+<!-- END WEBGL CANVAS -->
+
+</body>
+</head>
+</html> 
